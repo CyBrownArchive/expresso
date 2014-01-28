@@ -101,4 +101,27 @@ describe ('Expresso', function () {
         });
     });
 
+    describe ('.convert', function () {
+
+        it ('should have a name before setting a conversion function', function () {
+            var e = new expresso.Expresso();
+            (function () {
+                e.convert(function (id) {});
+            }).should.throw();
+        })
+
+        it ('should accept a convert function', function () {
+            var e = new expresso.Expresso();
+            e.add('foo');
+            e.convert(function (id) {});
+        });
+
+        it ('should throw an error if arg is not a function', function () {
+            var e = new expresso.Expresso();
+            e.add('foo');
+            (function () {
+                e.convert('not a function');
+            }).should.throw();
+        });
+    });
 });

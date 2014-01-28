@@ -37,4 +37,27 @@ describe ('Parameter', function () {
             p.isValid('i').should.not.be.ok;
         });
     });
+
+    describe ('conversion', function () {
+
+        it ('should accept a function', function () {
+            var p = new Parameter();
+            p.convert(function() {});
+        });
+
+        it ('should not accept anything than a function', function () {
+            (function () {
+                var p = new Parameter();
+                p.convert('not a function');
+            }).should.throw();
+        });
+
+        it ('should not be called twice', function () {
+            var p = new Parameter();
+            p.convert(function () {});
+            (function () {
+                p.convert(function () {});
+            }).should.throw();
+        });
+    });
 });
